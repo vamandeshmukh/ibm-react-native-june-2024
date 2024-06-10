@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const App = () => {
+
   const [loginData, setLoginData] = useState({
     username: '',
     password: '',
@@ -21,10 +22,8 @@ const App = () => {
     console.log(loginData);
     if (loginData.username === 'vaman' && loginData.password === 'vaman') {
       setMessage(`Hi ${loginData.username}! You've logged in successfully!`);
-      // console.log(message);
     } else {
       setMessage('Invalid credentials!');
-      // console.error(message);
     }
     setLoginData({
       username: '',
@@ -34,7 +33,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login Screen</Text>
+      <Text >Login Screen</Text>
       <View>
         <TextInput
           placeholder="Username"
