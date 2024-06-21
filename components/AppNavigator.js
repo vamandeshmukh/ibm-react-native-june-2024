@@ -1,3 +1,5 @@
+// AppNavigator.js
+
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -18,7 +20,7 @@ const AppNavigator = () => {
                 <Drawer.Screen name="Register" component={Register} />
                 <Drawer.Screen name="Login" component={Login} />
                 <Drawer.Screen name="Profile" component={Profile} />
-                <Drawer.Screen name="Edit Profile" component={EditProfile} />
+                <Drawer.Screen name="EditProfile" component={EditProfile} />
                 <Drawer.Screen name="Logout" component={Logout} />
             </Drawer.Navigator>
         </NavigationContainer>

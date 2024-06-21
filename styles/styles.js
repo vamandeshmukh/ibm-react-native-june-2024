@@ -1,6 +1,12 @@
+// styles.js
+
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+    body: {
+        color: '#ffffff',
+    },
+
     container: {
         flex: 1,
         backgroundColor: '#121212',
@@ -28,6 +34,15 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         width: '80%',
         marginBottom: 10,
+    },
+    camera: {
+        height: 200,
+        marginVertical: 16,
+    },
+    cameraButtonContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
 });

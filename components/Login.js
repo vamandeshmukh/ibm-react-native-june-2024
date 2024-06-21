@@ -1,34 +1,51 @@
+// Login.js
+
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogin } from '../redux/UserSlice';
+import styles from '../styles/styles';
 
 const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [credentials, setCredentials] = useState({ username: '', password: '' });
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const registeredUser = useSelector((state) => state.user.loggedInUser);
 
     const handleLogin = () => {
-        if (username === 'sonu' && password === 'sonu') {
+        const { username, password } = credentials;
+        const isDefaultLogin = username === 'sonu' && password === 'sonu';
+
+        if (
+            (registeredUser.username === '' && isDefaultLogin) ||
+            (username === registeredUser.username && password === registeredUser.password)
+        ) {
+            dispatch(userLogin({ username, password }));
             navigation.navigate('Profile');
         } else {
             Alert.alert('Error', 'Invalid username or password');
         }
-    }; 
+    };
+
+    const handleChange = (field, value) => {
+        setCredentials({ ...credentials, [field]: value });
+    };
 
     return (
         <View style={styles.container}>
             <Text style={styles.label}>Username</Text>
             <TextInput
                 style={styles.input}
-                value={username}
-                onChangeText={setUsername}
+                value={credentials.username}
+                onChangeText={(value) => handleChange('username', value)}
                 placeholder="Enter your username"
             />
             <Text style={styles.label}>Password</Text>
             <TextInput
                 style={styles.input}
-                value={password}
-                onChangeText={setPassword}
+                value={credentials.password}
+                onChangeText={(value) => handleChange('password', value)}
                 placeholder="Enter your password"
                 secureTextEntry
             />
@@ -37,26 +54,60 @@ const Login = () => {
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        padding: 16,
-    },
-    label: {
-        fontSize: 18,
-        marginBottom: 8,
-    },
-    input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 16,
-        paddingHorizontal: 8,
-    },
-});
-
 export default Login;
+
+
+// // Login.js
+
+// import React, { useState } from 'react';
+// import { View, Text, TextInput, Button, Alert } from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
+// import { useDispatch } from 'react-redux';
+// import { userLogin } from '../redux/UserSlice';
+// import styles from '../styles/styles';
+
+// const Login = () => {
+//     const [credentials, setCredentials] = useState({ username: '', password: '' });
+//     const navigation = useNavigation();
+//     const dispatch = useDispatch();
+
+//     const handleLogin = () => {
+//         const { username, password } = credentials;
+//         if (username === 'sonu' && password === 'sonu') {
+//             dispatch(userLogin({ username, password }));
+//             navigation.navigate('Profile');
+//         } else {
+//             Alert.alert('Error', 'Invalid username or password');
+//         }
+//     };
+
+//     const handleChange = (field, value) => {
+//         setCredentials({ ...credentials, [field]: value });
+//     };
+
+//     return (
+//         <View style={styles.container}>
+//             <Text style={styles.label}>Username</Text>
+//             <TextInput
+//                 style={styles.input}
+//                 value={credentials.username}
+//                 onChangeText={(value) => handleChange('username', value)}
+//                 placeholder="Enter your username"
+//             />
+//             <Text style={styles.label}>Password</Text>
+//             <TextInput
+//                 style={styles.input}
+//                 value={credentials.password}
+//                 onChangeText={(value) => handleChange('password', value)}
+//                 placeholder="Enter your password"
+//                 secureTextEntry
+//             />
+//             <Button title="Login" onPress={handleLogin} />
+//         </View>
+//     );
+// };
+
+// export default Login;
 
 
 // import { StatusBar } from 'expo-status-bar';
@@ -122,4 +173,5 @@ export default Login;
 
 
 // export default Login;
+
 
